@@ -1,0 +1,79 @@
+<md-content layout="column">
+
+
+    <md-content flex="" layout-padding="">
+
+      <div layout="column" layout-fill="" layout-align="top center">
+        <h1>Step 3</h1>
+
+        <p>A Promise has a status: the values can be "pending", "resolved", "rejected"</p>
+
+        <pre><code class="language-javascript">
+          var Q = function() {
+            var self = this;
+            this.status = "pending";
+            var _then, _reject;
+            this.then = function(callback, reject) {
+                _then = callback;
+                _reject = reject;
+            };
+            this.resolve = function(value) {
+                self.status= "resolved";
+                _then(value);
+            };
+            this.reject = function(error) {
+                self.status = "rejected";
+                _reject(error);
+            };
+          }
+        </code></pre>
+
+        <h3>Great! now we the status of a promise :)</h3>
+
+        <h2>Test it:</h2>
+
+        <div>To test this we should create an Async action that returns a promise:</div>
+
+        <pre><code class="language-javascript">
+          var AsyncAction = function(action) {
+            return function(){
+                var args = Array.prototype.slice.call(arguments);
+                var promise = new Q();
+                setTimeout(function() {
+                    try {
+                      var value = action.apply(this, args);
+                      promise.resolve(value);
+                    }
+                    catch (e) {
+                      promise.reject(e);
+                    }
+                },1000);
+                return promise;
+            };
+          }
+
+          var multiply = AsyncAction(function(arg, arg1) {
+            return arg * arg1
+          });
+
+          var p = multiply(2,4);
+          console.log('Status:' + p.status);
+          p.then(function(result) {
+            console.log(result);
+            console.log('Status:' + p.status);
+          },function(error) {
+            console.log(error);
+            console.log('Status:' + p.status);
+          });
+          //Returns: Status: pending
+          //         Status: resolved
+        </code></pre>
+
+      </div>
+
+      <div flex=""></div>
+
+    </md-content>
+
+</md-content>
+
