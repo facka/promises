@@ -1,4 +1,4 @@
-var app = angular.module('app', ['promise', 'ngMaterial', 'ngRoute']);
+var app = angular.module('app', ['promise', 'ngMaterial', 'ngRoute', 'jseditor']);
 
 app.config(function($routeProvider) {
   $routeProvider

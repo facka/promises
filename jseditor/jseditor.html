@@ -1,0 +1,11 @@
+<md-content layout="column">
+  <md-content layout="column" >
+    <div id="editor">
+      <ng-transclude></ng-transclude>
+    </div>
+  </md-content>
+  <md-content layout="column">
+    <md-button ng-click="run()">Run</md-button>
+    <textarea ng-model="console" rows="4" cols="50" readonly></textarea>
+  </md-content>
+</md-content>
