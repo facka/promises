@@ -21,6 +21,10 @@ app.config(function($routeProvider) {
   .when('/step3', {
     templateUrl: 'step3/view.html',
     controller: 'Step3Ctrl'
+  })
+  .when('/step4', {
+    templateUrl: 'step4/view.html',
+    controller: 'Step4Ctrl'
   });
 
 });
@@ -52,6 +56,10 @@ app.controller('MainCtrl', function($scope, Promise, $timeout, $mdSidenav, $loca
     {
       title: "Step3",
       path: "/step3"
+    },
+    {
+      title: "Step4",
+      path: "/step4"
     },
     {
       title: "Example",

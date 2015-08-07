@@ -4,31 +4,77 @@
     <md-content flex="" layout-padding="">
 
       <div layout="column" layout-fill="" layout-align="top center">
-        <h1>Step 3</h1>
+        <h1>Step 4</h1>
 
-        <p>A Promise has a status: the values can be "pending", "resolved", "rejected"</p>
+        <p>Let's think about more properties about a promise:</p>
+
+        <div>
+            <p> <strong>id:</strong> Unique identifier of the promise</p>
+        </div>
+        <div>
+            <p> <strong>name:</strong> Name of the promise</p>
+        </div>
+        <div>
+            <p> <strong>startedAt:</strong> Time it was started</p>
+        </div>
+        <div>
+            <p> <strong>finishedAt:</strong> Time it was finished</p>
+        </div>
+        <div>
+            <p> <strong>seconds:</strong> Seconds it takes to finish</p>
+        </div>
+        <div>
+            <p> <strong>value:</strong> The value that the promises returns when is resolved</p>
+        </div>
 
         <pre><code class="language-javascript">
-          var Q = function() {
+          var Q = function(id, name) {
             var self = this;
+            this.name = name;
+            this.id = id;
+            this.startedAt = new Date().getTime();;
+            this.finishedAt = 0;
+            this.seconds = 0;
+            this.value = null;
             this.status = "pending";
             var _then, _reject;
-            this.then = function(callback, reject) {
+
+            this.then = function (callback, reject) {
                 _then = callback;
                 _reject = reject;
             };
-            this.resolve = function(value) {
+
+            this.resolve = function (value) {
                 self.status= "resolved";
+                self.value = value;
+                this.finishedAt = new Date().getTime();
+                this.seconds = this.finishedAt - this.startedAt;
                 _then(value);
+
             };
-            this.reject = function(error) {
+
+            this.reject = function (error) {
                 self.status = "rejected";
+                this.finishedAt = new Date().getTime();
+                this.seconds = this.finishedAt - this.startedAt;
                 _reject(error);
             };
           }
         </code></pre>
 
-        <h3>Great! now we've the status of a promise :)</h3>
+        Also we are going to create a Factory for promises
+
+
+        <pre><code class="language-javascript">
+          var id = 0;
+          var Promise = function(name) {
+            var q = new Q(id++, name);
+            promises.push(q);
+            return q;
+          };
+        </code></pre>
+
+        <h3>Great! now we have more info about a promise :)</h3>
 
         <h2>Test it:</h2>
 
