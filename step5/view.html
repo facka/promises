@@ -4,9 +4,11 @@
     <md-content flex="" layout-padding="">
 
       <div layout="column" layout-fill="" layout-align="top center">
-        <h1>Step 4</h1>
+        <h1>Step 5</h1>
 
-        <p>Let's think about more properties about a promise:</p>
+        <p>Now it's time to add support for chaining promises:</p>
+
+        <p>A chain of promises is something like "then().then().then()". So to do this the then function has to return a promise</p>
 
         <div>
             <p> <strong>id:</strong> Unique identifier of the promise</p>
@@ -37,11 +39,19 @@
             this.seconds = 0;
             this.value = null;
             this.status = "pending";
+            this.callback = null;
+            this.errorCallback = null;
             var _then, _reject;
 
             this.then = function (callback, reject) {
-                _then = callback;
-                _reject = reject;
+                //_then = callback;
+                //_reject = reject;
+                var callbackPromise = Promise('Success for promise ' + this.id + ' (' + this.name + ')');
+                callbackPromise.callback = callback;
+                this.thenListeners.push(callbackPromise);
+                var errorPromise = Promise('Error for promise ' + this.id + ' (' + this.name + ')');
+                errorPromise.callback = reject;
+                this.errorListeners.push(errorPromise);
             };
 
             this.resolve = function (value) {
