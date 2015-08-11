@@ -67,6 +67,7 @@
 
         <pre><code class="language-javascript">
           var id = 0;
+          var promises = [];
           var Promise = function(name) {
             var q = new Q(id++, name);
             promises.push(q);
@@ -76,7 +77,7 @@
 
         <h3>Great! now we have more info about a promise :)</h3>
 
-        <h2>Test it:</h2>
+        <h2>Test:</h2>
 
         <div>To test this we should create an Async action that returns a promise:</div>
 
@@ -101,19 +102,23 @@
           var multiply = AsyncAction('Multiply', function(arg, arg1) {
             return arg * arg1
           });
-
-          var p = multiply(2,4);
-          console.log('Status:' + p.status);
-          p.then(function(result) {
-            console.log(result);
-            console.log('Status:' + p.status);
-          },function(error) {
-            console.log(error);
-            console.log('Status:' + p.status);
-          });
-          //Returns: Status: pending
-          //         Status: resolved
         </code></pre>
+
+
+        <js-editor>
+
+var p = multiply(2,4);
+console.log('Status:' + p.status);
+p.then(function(result) {
+  console.log(result);
+  console.log('Status:' + p.status);
+},function(error) {
+  console.log(error);
+  console.log('Status:' + p.status);
+});
+//Returns: Status: pending
+//         Status: resolved
+        </js-editor>
 
       </div>
 

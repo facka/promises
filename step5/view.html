@@ -40,23 +40,33 @@
             this.value = null;
             this.status = "pending";
             this.callback = null;
-            this.errorCallback = null;
-            var _then, _reject;
+            this.thenListeners = [];
+            this.errorListeners = [];
 
             this.then = function (callback, reject) {
-                //_then = callback;
-                //_reject = reject;
+
                 var callbackPromise = Promise('Success for promise ' + this.id + ' (' + this.name + ')');
+
                 callbackPromise.callback = callback;
                 this.thenListeners.push(callbackPromise);
-                var errorPromise = Promise('Error for promise ' + this.id + ' (' + this.name + ')');
-                errorPromise.callback = reject;
-                this.errorListeners.push(errorPromise);
+
+                if (reject) {
+                    var errorPromise = Promise('Error for promise ' + this.id + ' (' + this.name + ')');
+
+                    errorPromise.callback = reject;
+                    this.errorListeners.push(errorPromise);
+                }
             };
 
             this.resolve = function (value) {
                 self.status= "resolved";
                 self.value = value;
+
+                this.thenListeners.forEach(function (callbackPromise) {
+                  var value = callbackPromise.callback(arg);
+                  callbackPromise.resolve(value);
+                });
+
                 this.finishedAt = new Date().getTime();
                 this.seconds = this.finishedAt - this.startedAt;
                 _then(value);
@@ -65,6 +75,12 @@
 
             this.reject = function (error) {
                 self.status = "rejected";
+
+                this.errorListeners.forEach(function(errorPromise) {
+                  var value = errorPromise.callback(error);
+                  callbackPromise.resolve(value);
+                });
+
                 this.finishedAt = new Date().getTime();
                 this.seconds = this.finishedAt - this.startedAt;
                 _reject(error);
@@ -72,11 +88,12 @@
           }
         </code></pre>
 
-        Also we are going to create a Factory for promises
+        The Factory for promises keeps as it is.
 
 
         <pre><code class="language-javascript">
           var id = 0;
+          var promises = [];
           var Promise = function(name) {
             var q = new Q(id++, name);
             promises.push(q);
@@ -84,9 +101,9 @@
           };
         </code></pre>
 
-        <h3>Great! now we have more info about a promise :)</h3>
+        <h3>Great! now we have more chaining support in promises :)</h3>
 
-        <h2>Test it:</h2>
+        <h2>Test:</h2>
 
         <div>To test this we should create an Async action that returns a promise:</div>
 
@@ -112,18 +129,17 @@
             return arg * arg1
           });
 
-          var p = multiply(2,4);
-          console.log('Status:' + p.status);
-          p.then(function(result) {
-            console.log(result);
-            console.log('Status:' + p.status);
-          },function(error) {
-            console.log(error);
-            console.log('Status:' + p.status);
-          });
-          //Returns: Status: pending
-          //         Status: resolved
         </code></pre>
+
+        <js-editor>
+
+multiply(2,4).then(function(result) {
+  console.log(result);
+  return "The value is: " + result;
+}).then(function(value) {
+  console.log('Chained promise receives: ' + value);
+});
+        </js-editor>
 
       </div>
 
