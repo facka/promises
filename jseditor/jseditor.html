@@ -1,4 +1,5 @@
 <md-content layout="column">
+  <h2>Test it!</h2>
   <md-content layout="column" >
     <div id="editor">
       <ng-transclude></ng-transclude>
@@ -6,6 +7,6 @@
   </md-content>
   <md-content layout="column">
     <md-button ng-click="run()">Run</md-button>
-    <textarea ng-model="console" rows="4" cols="50" readonly></textarea>
+    <textarea ng-model="console" rows="4" cols="50" readonly placeholder="This is the console output"></textarea>
   </md-content>
 </md-content>

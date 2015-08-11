@@ -20,39 +20,6 @@
 
       </div>
 
-      <js-editor>
-              var Q = function() {
-                var _then;
-                this.then = function(callback) {
-                    _then = callback;
-                }
-                this.resolve = function(value) {
-                    _then(value);
-                }
-              }
-              var AsyncAction = function(action) {
-                return function(){
-                    var args = Array.prototype.slice.call(arguments);
-                    var promise = new Q();
-                    setTimeout(function() {
-                        var value = action.apply(this, args);
-                        promise.resolve(value);
-                    },1000);
-                    return promise;
-                };
-              }
-
-              var multiply = AsyncAction(function(arg, arg1) {
-                return arg*arg1
-              });
-
-              var p = multiply(2,4);
-              p.then(function(result) {
-                console.log(result);
-              });
-              //Returns: 8
-      </js-editor>
-
       <div flex=""></div>
 
     </md-content>
