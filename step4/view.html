@@ -4,7 +4,7 @@
     <md-content flex="" layout-padding="">
 
       <div layout="column" layout-fill="" layout-align="top center">
-        <h1>Step 4</h1>
+        <h1>Step 4: Adding more metadata</h1>
 
         <p>Let's think about more properties about a promise:</p>
 
@@ -77,47 +77,21 @@
 
         <h3>Great! now we have more info about a promise :)</h3>
 
-        <h2>Test:</h2>
+        <h2>Test it!:</h2>
 
-        <div>To test this we should create an Async action that returns a promise:</div>
-
-        <pre><code class="language-javascript">
-          var AsyncAction = function(name, action) {
-            return function(){
-                var args = Array.prototype.slice.call(arguments);
-                var promise = new Promise(name);
-                setTimeout(function() {
-                    try {
-                      var value = action.apply(this, args);
-                      promise.resolve(value);
-                    }
-                    catch (e) {
-                      promise.reject(e);
-                    }
-                },1000);
-                return promise;
-            };
-          }
-
-          var multiply = AsyncAction('Multiply', function(arg, arg1) {
-            return arg * arg1
-          });
-        </code></pre>
-
+        <div>To test this we are going to use the <a href="/#/appendix">Async function</a>:</div>
 
         <js-editor>
-
-var p = multiply(2,4);
-console.log('Status:' + p.status);
-p.then(function(result) {
-  console.log(result);
-  console.log('Status:' + p.status);
-},function(error) {
-  console.log(error);
-  console.log('Status:' + p.status);
+var multiply = AsyncAction('Multiply', function(arg, arg1) {
+  return arg*arg1;
 });
-//Returns: Status: pending
-//         Status: resolved
+var promise = multiply(2,4);
+promise.then(function(result) {
+  console.log('Result: ' + result);
+  console.log('Status:' + promise.status);
+  console.log('Resolved in ' + promise.seconds + ' seconds with value ' + result);
+});
+console.log('Status:' + promise.status);
         </js-editor>
 
       </div>

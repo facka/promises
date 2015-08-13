@@ -1,5 +1,5 @@
 angular.module('app')
-.controller('Step5Ctrl', function($scope, $timeout, $mdSidenav) {
+.controller('AppendixCtrl', function($scope, Promise, $timeout, $mdSidenav) {
     $timeout(Prism.highlightAll);
 
 
@@ -7,7 +7,7 @@ angular.module('app')
         var self = this;
         this.name = name;
         this.id = id;
-        this.startedAt = new Date().getTime();
+        this.startedAt = new Date().getTime();;
         this.finishedAt = 0;
         this.seconds = 0;
         this.value = null;
@@ -18,19 +18,17 @@ angular.module('app')
 
         this.then = function (callback, reject) {
 
-            var callbackPromise = window.Promise('Success for promise ' + this.id + ' (' + this.name + ')');
+            var callbackPromise = Promise('Success for promise ' + this.id + ' (' + this.name + ')');
 
             callbackPromise.callback = callback;
             this.thenListeners.push(callbackPromise);
 
             if (reject) {
-                var errorPromise = window.Promise('Error for promise ' + this.id + ' (' + this.name + ')');
+                var errorPromise = Promise('Error for promise ' + this.id + ' (' + this.name + ')');
 
                 errorPromise.callback = reject;
                 this.errorListeners.push(errorPromise);
             }
-
-            return callbackPromise;
         };
 
         this.resolve = function (value) {
@@ -38,12 +36,14 @@ angular.module('app')
             self.value = value;
 
             this.thenListeners.forEach(function (callbackPromise) {
-              var result = callbackPromise.callback(self.value);
-              callbackPromise.resolve(result);
+              var value = callbackPromise.callback(arg);
+              callbackPromise.resolve(value);
             });
 
             this.finishedAt = new Date().getTime();
             this.seconds = this.finishedAt - this.startedAt;
+            _then(value);
+
         };
 
         this.reject = function (error) {
@@ -56,7 +56,12 @@ angular.module('app')
 
             this.finishedAt = new Date().getTime();
             this.seconds = this.finishedAt - this.startedAt;
+            _reject(error);
         };
+      };
+
+      window.Q.prototype.toString = function() {
+        return this.status;
       };
 
       window.id = 0;
@@ -67,10 +72,29 @@ angular.module('app')
         return q;
       };
 
+      window.Promise.all = function(promises) {
+        var promise = Promise('Promise for ' + promises.length + ' promises');
+        var array = [];
+        var i = 0;
+        promises.forEach(function(p) {
+
+          p.then(function success(data) {
+            i++;
+            array.push(data);
+
+            if (i == promises.length) {
+              promise.resolve(array);
+            }
+          });
+
+        });
+        return promise;
+      };
+
       window.AsyncAction = function(name, action) {
         return function(){
             var args = Array.prototype.slice.call(arguments);
-            var promise = window.Promise(name);
+            var promise = new Promise(name);
             setTimeout(function() {
                 try {
                   var value = action.apply(this, args);
@@ -84,6 +108,9 @@ angular.module('app')
         };
       };
 
+      window.multiply = AsyncAction('Multiply', function(arg, arg1) {
+        return arg * arg1;
+      });
 });
 
 

@@ -1,12 +1,12 @@
 angular.module('app')
-.controller('Step4Ctrl', function($scope, Promise, $timeout, $mdSidenav) {
+.controller('Step4Ctrl', function($scope, $timeout, $mdSidenav) {
     $timeout(Prism.highlightAll);
 
     window.Q = function(id, name) {
         var self = this;
         this.name = name;
         this.id = id;
-        this.startedAt = new Date().getTime();;
+        this.startedAt = new Date().getTime();
         this.finishedAt = 0;
         this.seconds = 0;
         this.value = null;
@@ -46,7 +46,7 @@ angular.module('app')
     window.AsyncAction = function(name, action) {
         return function(){
             var args = Array.prototype.slice.call(arguments);
-            var promise = new Promise(name);
+            var promise = window.Promise(name);
             setTimeout(function() {
                 try {
                   var value = action.apply(this, args);
@@ -60,9 +60,6 @@ angular.module('app')
         };
     };
 
-    window.multiply = AsyncAction('Multiply', function(arg, arg1) {
-        return arg * arg1;
-    });
 });
 
 

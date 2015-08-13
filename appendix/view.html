@@ -1,0 +1,52 @@
+<md-content layout="column">
+
+
+    <md-content flex="" layout-padding="">
+
+      <div layout="column" layout-fill="" layout-align="top center">
+        <h1>Appendix: Async function</h1>
+
+        <div>To test promises we should create an Async action that returns a promise:</div>
+
+        <pre><code class="language-javascript">
+          var AsyncAction = function(name, action) {
+            return function(){
+                var args = Array.prototype.slice.call(arguments);
+                var promise = new Promise(name);
+                setTimeout(function() {
+                    try {
+                      var value = action.apply(this, args);
+                      promise.resolve(value);
+                    }
+                    catch (e) {
+                      promise.reject(e);
+                    }
+                },1000);
+                return promise;
+            };
+          }
+
+        </code></pre>
+
+        <js-editor>
+var multiply = AsyncAction('Multiply', function(arg, arg1) {
+  return arg * arg1
+});
+
+var promise = multiply(2,1);
+promise.then(function(result) {
+  console.log('Result: ', result);
+});
+
+console.log(promise.status);
+        </js-editor>
+
+      </div>
+
+      <div flex=""></div>
+
+    </md-content>
+
+</md-content>
+
+

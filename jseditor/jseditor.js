@@ -11,7 +11,14 @@ angular.module('jseditor', [])
       }
 
       $timeout(function() {
-        $rootScope.$emit('log', msgs.toString());
+        if (angular.isString(msgs[0])) {
+          var label = msgs.shift();
+          $rootScope.$emit('log', label + msgs.toString());
+        }
+        else {
+          $rootScope.$emit('log', msgs.toString());
+        }
+
       });
 
       log.apply(console, msgs);

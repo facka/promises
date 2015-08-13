@@ -4,7 +4,7 @@
     <md-content flex="" layout-padding="">
 
       <div layout="column" layout-fill="" layout-align="top center">
-        <h1>Step 2</h1>
+        <h1>Step 2: Adding reject</h1>
 
         <p>A Promise can be reject, so we are going to add the reject function</p>
 
@@ -33,43 +33,22 @@
 
         <h3>Great! now we can manage rejected promises :)</h3>
 
-        <h2>Test:</h2>
+        <h2>Test it!:</h2>
 
-        <div>To test this we are going create an Async action that returns a promise:</div>
+        <div>To test this we are going to use the <a href="/#/appendix">Async function</a>:</div>
 
-        <pre><code class="language-javascript">
-          var AsyncAction = function(action) {
-            return function(){
-                var args = Array.prototype.slice.call(arguments);
-                var promise = new Q();
-                setTimeout(function() {
-                    try {
-                      var value = action.apply(this, args);
-                      promise.resolve(value);
-                    }
-                    catch (e) {
-                      promise.reject(e);
-                    }
-                },1000);
-                return promise;
-            };
-          }
-
-          var multiply = AsyncAction(function(arg, arg1) {
-            throw "An error";
-          });
-        </code></pre>
-
-          <js-editor>
-
-var p = multiply(2,4);
-p.then(function(result) {
+        <js-editor>
+var multiply = AsyncAction('Multiply', function(arg, arg1) {
+  throw "An error";
+});
+var promise = multiply(2,4);
+promise.then(function(result) {
   console.log(result);
 },function(error) {
   console.log(error);
 });
+console.log('Waiting result from promise');
         </js-editor>
-
 
       </div>
 

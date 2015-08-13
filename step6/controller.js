@@ -1,5 +1,5 @@
 angular.module('app')
-.controller('Step5Ctrl', function($scope, $timeout, $mdSidenav) {
+.controller('Step6Ctrl', function($scope, $timeout, $mdSidenav) {
     $timeout(Prism.highlightAll);
 
 
@@ -18,13 +18,13 @@ angular.module('app')
 
         this.then = function (callback, reject) {
 
-            var callbackPromise = window.Promise('Success for promise ' + this.id + ' (' + this.name + ')');
+            var callbackPromise = Promise('Success for promise ' + this.id + ' (' + this.name + ')');
 
             callbackPromise.callback = callback;
             this.thenListeners.push(callbackPromise);
 
             if (reject) {
-                var errorPromise = window.Promise('Error for promise ' + this.id + ' (' + this.name + ')');
+                var errorPromise = Promise('Error for promise ' + this.id + ' (' + this.name + ')');
 
                 errorPromise.callback = reject;
                 this.errorListeners.push(errorPromise);
@@ -67,10 +67,29 @@ angular.module('app')
         return q;
       };
 
+      window.Promise.all = function(promises) {
+        var promise = window.Promise('Promise for ' + promises.length + ' promises');
+        var array = [];
+        var i = 0;
+        promises.forEach(function(p) {
+
+          p.then(function success(data) {
+            i++;
+            array.push(data);
+
+            if (i == promises.length) {
+              promise.resolve(array);
+            }
+          });
+
+        });
+        return promise;
+      };
+
       window.AsyncAction = function(name, action) {
         return function(){
             var args = Array.prototype.slice.call(arguments);
-            var promise = window.Promise(name);
+            var promise = new Promise(name);
             setTimeout(function() {
                 try {
                   var value = action.apply(this, args);
@@ -83,7 +102,6 @@ angular.module('app')
             return promise;
         };
       };
-
 });
 
 

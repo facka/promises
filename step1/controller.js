@@ -1,5 +1,5 @@
 angular.module('app')
-.controller('Step1Ctrl', function($scope, Promise, $timeout, $mdSidenav) {
+.controller('Step1Ctrl', function($scope, $timeout, $mdSidenav) {
     $timeout(Prism.highlightAll);
 
     window.Q = function() {
@@ -22,9 +22,7 @@ angular.module('app')
             return promise;
         };
     };
-    window.multiply = AsyncAction(function(arg, arg1) {
-        return arg*arg1;
-    });
+
 });
 
 

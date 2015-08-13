@@ -1,5 +1,5 @@
 angular.module('app')
-.controller('Step2Ctrl', function($scope, Promise, $timeout, $mdSidenav) {
+.controller('Step2Ctrl', function($scope, $timeout, $mdSidenav) {
     $timeout(Prism.highlightAll);
 
     window.Q = function() {
@@ -32,9 +32,6 @@ angular.module('app')
         };
     };
 
-    window.multiply = AsyncAction(function(arg, arg1) {
-        throw "An error";
-    });
 });
 
 

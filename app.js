@@ -29,6 +29,14 @@ app.config(function($routeProvider) {
   .when('/step5', {
     templateUrl: 'step5/view.html',
     controller: 'Step5Ctrl'
+  })
+  .when('/step6', {
+    templateUrl: 'step6/view.html',
+    controller: 'Step6Ctrl'
+  })
+  .when('/appendix', {
+    templateUrl: 'appendix/view.html',
+    controller: 'AppendixCtrl'
   });
 
 });
@@ -50,24 +58,32 @@ app.controller('MainCtrl', function($scope, Promise, $timeout, $mdSidenav, $loca
       path: "/"
     },
     {
-      title: "Step1",
+      title: "Step 1",
       path: "/step1"
     },
     {
-      title: "Step2",
+      title: "Step 2",
       path: "/step2"
     },
     {
-      title: "Step3",
+      title: "Step 3",
       path: "/step3"
     },
     {
-      title: "Step4",
+      title: "Step 4",
       path: "/step4"
     },
     {
-      title: "Step5",
+      title: "Step 5",
       path: "/step5"
+    },
+    {
+      title: "Step 6",
+      path: "/step6"
+    },
+    {
+      title: "Appendix",
+      path: "/appendix"
     },
     {
       title: "Example",

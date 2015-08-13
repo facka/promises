@@ -1,0 +1,68 @@
+<md-content layout="column">
+
+
+    <md-content flex="" layout-padding="">
+
+      <div layout="column" layout-fill="" layout-align="top center">
+        <h1>Step 6: Adding array of promises support</h1>
+
+        <p>Finally we are going to add support to wait a list of promises to be resolved:</p>
+
+        <p>This is something like Promise.all([promise1, promise2, promise3]).then()</p>
+
+        <div>
+            <p> This function receives an array of promises and returns a Promise that will be resolved when all the promises in the array get resolved.</p>
+        </div>
+
+        <pre><code class="language-javascript">
+          Promise.all = function(promises) {
+            var promise = Promise('Promise for ' + promises.length + ' promises');
+            var array = [];
+            var i = 0;
+            promises.forEach(function(p) {
+
+              p.then(function success(data) {
+                i++;
+                array.push(data);
+
+                if (i == promises.length) {
+                  promise.resolve(array);
+                }
+              });
+
+            });
+            return promise;
+          };
+        </code></pre>
+
+        <h3>Great! now we have support for array of promises :)</h3>
+
+        <h2>Test it!:</h2>
+
+        <div>To test this we are going to use the <a href="/#/appendix">Async function</a>:</div>
+
+        <js-editor>
+var multiply = AsyncAction('Multiply', function(arg, arg1) {
+  return arg * arg1
+});
+var promises = [];
+promises.push(multiply(2,1));
+promises.push(multiply(2,2));
+promises.push(multiply(2,3));
+promises.push(multiply(2,4));
+Promise.all(promises).then(function(result) {
+  console.log('Result: ', result);
+});
+
+console.log('Waiting all promises tobe resolved');
+        </js-editor>
+
+      </div>
+
+      <div flex=""></div>
+
+    </md-content>
+
+</md-content>
+
+

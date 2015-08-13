@@ -16,8 +16,25 @@
               <p>Error Listeners: {{promise.errorListeners.length}}</p>
             </div>
 
-            <pre><code class="language-javascript">var test = function() {
-            return 'test';
+            <pre><code class="language-javascript">
+            var d = promisedDuplicateAsyncFunc(2);
+            d.then(function(value) {
+                console.log("0: " + value);
+                return value;
+            });
+
+            d.then(function(value) {
+                console.log("1: " + value);
+                return value;
+            });
+
+            d.then(function(value) {
+                console.log("2: " + value);
+                return value*2;
+            }).then(function(value) {
+                console.log("3: " + value);
+                return value;
+            });
             }</code></pre>
         </div>
 

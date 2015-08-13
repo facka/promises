@@ -4,7 +4,7 @@
     <md-content flex="" layout-padding="">
 
       <div layout="column" layout-fill="" layout-align="top center">
-        <h1>Step 1</h1>
+        <h1>Step 1: Basic promise object with then and resolve function</h1>
 
         <p>We are going to create a very simple Promise object that contains two functions</p>
 
@@ -29,33 +29,19 @@
 
         <h3>Great! We have our first promise object :)</h3>
 
-        <h2>Test:</h2>
+        <h2>Test it!:</h2>
 
-        <div>To test this we are going create an Async action that returns a promise:</div>
-
-        <pre><code class="language-javascript">
-          var AsyncAction = function(action) {
-            return function(){
-                var args = Array.prototype.slice.call(arguments);
-                var promise = new Q();
-                setTimeout(function() {
-                    var value = action.apply(this, args);
-                    promise.resolve(value);
-                },1000);
-                return promise;
-            };
-          }
-
-          var multiply = AsyncAction(function(arg, arg1) {
-            return arg*arg1;
-          });
-        </code></pre>
+        <div>To test this we are going to use the <a href="/#/appendix">Async function</a>:</div>
 
         <js-editor>
-
-multiply(2,4).then(function(result) {
+var multiply = AsyncAction(function(arg, arg1) {
+  return arg*arg1;
+});
+var promise = multiply(2,4);
+promise.then(function(result) {
   console.log(result);
 });
+console.log('Waiting result from promise');
         </js-editor>
 
       </div>

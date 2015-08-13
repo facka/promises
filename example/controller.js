@@ -1,5 +1,7 @@
 angular.module('app')
 .controller('ExampleCtrl', function($scope, Promise, $timeout, $mdSidenav) {
+    $timeout(Prism.highlightAll);
+
     var promisedDuplicateAsyncFunc = function(value) {
 
         var promise = Promise('Duplicate value ' + value);
