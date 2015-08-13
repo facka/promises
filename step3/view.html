@@ -35,12 +35,12 @@
         <div>To test this we are going to use the <a href="#/appendix">Async function</a>:</div>
 
         <js-editor>
-var multiply = AsyncAction('Multiply', function(arg, arg1) {
+var multiply = AsyncAction(function(arg, arg1) {
   return arg*arg1;
 });
 var promise = multiply(2,4);
 promise.then(function(result) {
-  console.log('Status: ' + promise.status + ' with value ' + promise.result);
+  console.log('Status: ' + promise.status + ' with value ' + result);
 });
 console.log('Status: ' + promise.status);
         </js-editor>
