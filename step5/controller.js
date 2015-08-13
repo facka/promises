@@ -39,7 +39,14 @@ angular.module('app')
 
             this.thenListeners.forEach(function (callbackPromise) {
               var result = callbackPromise.callback(self.value);
-              callbackPromise.resolve(result);
+              if (result instanceof window.Q) {
+                result.then(function(result) {
+                  callbackPromise.resolve(result);
+                });
+              }
+              else {
+                callbackPromise.resolve(result);
+              }
             });
 
             this.finishedAt = new Date().getTime();
