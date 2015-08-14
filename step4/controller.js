@@ -1,5 +1,5 @@
 angular.module('app')
-.controller('Step4Ctrl', function($scope, $timeout, $mdSidenav) {
+.controller('Step4Ctrl', function($scope, $timeout, $mdSidenav, $location) {
     $timeout(Prism.highlightAll);
 
     window.Q = function(id, name) {
@@ -58,6 +58,10 @@ angular.module('app')
             },1000);
             return promise;
         };
+    };
+
+    $scope.next = function() {
+        $location.path('/step5');
     };
 
 });

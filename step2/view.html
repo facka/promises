@@ -6,13 +6,13 @@
       <div layout="column" layout-fill="" layout-align="top center">
         <h1>Step 2: Adding reject</h1>
 
-        <p>A Promise can be rejected, so we are going to add the reject function</p>
+        <p>A Promise can be rejected, so we are going to add the <i>reject</i> function</p>
 
         <div>
             <p> <strong>then:</strong> receives a function that will be executed when the promise is resolved and a function that will be executed when the promise is rejected </p>
         </div>
         <div>
-            <p> <strong>reject:</strong> receives the reason of why the promises was rejected and call the callback received in the reject function</p>
+            <p> <strong>reject:</strong> receives the reason of why the promises was rejected and call the callback received in the <i>reject</i> function</p>
         </div>
 
         <pre><code class="language-javascript">
@@ -53,7 +53,10 @@ console.log('Waiting result from promise');
       </div>
 
       <div flex=""></div>
-
+      <p>Let's go to the next step to add states support.</p>
+      <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+        <md-button md-no-ink class="md-primary" ng-click="next()">Go to step 3</md-button>
+      </section>
     </md-content>
 
 </md-content>

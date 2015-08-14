@@ -8,7 +8,7 @@
 
         <p>Now it's time to add support for chaining promises:</p>
 
-        <p>A chain of promises is something like "then().then().then()". So to do this the then function has to return a promise</p>
+        <p>A chain of promises is something like "then().then().then()". So to do this the <i>then</i> function has to return a promise</p>
 
         <div>
             <p> <strong>id:</strong> Unique identifier of the promise</p>
@@ -128,7 +128,10 @@ console.log('Status: ' + promise.status);
       </div>
 
       <div flex=""></div>
-
+      <p>One more thing is missing to complete our library, support for array of promises.</p>
+      <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+        <md-button md-no-ink class="md-primary" ng-click="next()">Go to step 6</md-button>
+      </section>
     </md-content>
 
 </md-content>

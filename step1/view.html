@@ -4,7 +4,7 @@
     <md-content flex="" layout-padding="">
 
       <div layout="column" layout-fill="" layout-align="top center">
-        <h1>Step 1: Basic promise object with then and resolve function</h1>
+        <h1>Step 1: Basic promise object with <i>then</i> and <i>resolve</i> function</h1>
 
         <p>We are going to create a very simple Promise object that contains two functions</p>
 
@@ -12,7 +12,7 @@
             <p> <strong>then:</strong> receives a function that will be executed when the promise is resolved</p>
         </div>
         <div>
-            <p> <strong>resolve:</strong> receives the value of the promises and call the callback received in the then function</p>
+            <p> <strong>resolve:</strong> receives the value of the promises and call the callback received in the <i>then</i> function</p>
         </div>
 
         <pre><code class="language-javascript">
@@ -47,6 +47,10 @@ console.log('Waiting result from promise');
       </div>
 
       <div flex=""></div>
+      <p>Ok, this promise object is really simple. What happens if the promises is rejeted?. Let's go to the next step.</p>
+      <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+        <md-button md-no-ink class="md-primary" ng-click="next()">Go to step 2</md-button>
+      </section>
 
     </md-content>
 

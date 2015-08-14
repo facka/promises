@@ -41,6 +41,13 @@ app.config(function($routeProvider) {
 
 });
 
+app.run(["$rootScope", "$window", '$location', function($rootScope, $window,  $location) {
+
+    $rootScope.$on('$routeChangeSuccess', function(evt, absNewUrl, absOldUrl){
+        $window.scrollTo(0,0);    //scroll to top of page after each route change
+    });
+}]);
+
 app.controller('MainCtrl', function($scope, Promise, $timeout, $mdSidenav, $location) {
   $scope.promises = Promise.stats;
 

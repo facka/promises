@@ -1,5 +1,5 @@
 angular.module('app')
-.controller('Step6Ctrl', function($scope, $timeout, $mdSidenav) {
+.controller('Step6Ctrl', function($scope, $timeout, $mdSidenav, $location) {
     $timeout(Prism.highlightAll);
 
 
