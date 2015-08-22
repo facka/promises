@@ -15,7 +15,7 @@ angular.module('app')
             _reject(error);
         };
     };
-    window.AsyncAction = function(action) {
+    window.AsyncAction = function(name, action) {
         return function(){
             var args = Array.prototype.slice.call(arguments);
             var promise = new Q();
